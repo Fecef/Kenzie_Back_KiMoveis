@@ -1,0 +1,911 @@
+{
+    "openapi": "3.0.3",
+    "info": {
+        "title": "KImóveis - API",
+        "description": "API que fornece um CRUD para criação de produtos e categorias.",
+        "contact": {
+            "name": "Felipe César",
+            "email": "fecef.figueiredo@gmail.com",
+            "url": "https://example.com/contact/"
+        },
+        "version": "1.0.0"
+    },
+    "servers": [
+        {
+            "url": "https://localhost:3000"
+        }
+    ],
+    "tags": [
+        {
+            "name": "Login",
+            "description": "Rota para autenticação de usuário."
+        },
+        {
+            "name": "User",
+            "description": "Rota para manipulação de usuário."
+        },
+        {
+            "name": "Category",
+            "description": "Rota para manipulação de categorias."
+        },
+        {
+            "name": "Property",
+            "description": "Rota para manipulação de imóveis."
+        },
+        {
+            "name": "Schedules",
+            "description": "Rota para manipulação de agendamentos."
+        }
+    ],
+    "paths": {
+        "/login": {
+            "post": {
+                "tags": [
+                    "Login"
+                ],
+                "summary": "Inicia uma sessão com o usuário.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "email",
+                                    "password"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "email": {
+                                        "type": "string",
+                                        "example": "fecef@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "token": {
+                                            "type": "string",
+                                            "example": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/users": {
+            "post": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Cria uma conta de usuário.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name",
+                                    "email",
+                                    "password",
+                                    "isAdm"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Felie César"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "fecef@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "123456"
+                                    },
+                                    "isAdm": {
+                                        "type": "boolean",
+                                        "example": true
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "example": "2023-06-09T03:50:53.427Z."
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "example": "2023-06-09T03:50:53.427Z"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "isAdm": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "fecef@gmail.com"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Felie César"
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "51d61319-044a-444f-b7b3-cd2b4ae87b85"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    }
+                }
+            },
+            "get": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Lista todos os usuários.",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "updatedAt": {
+                                                "type": "string",
+                                                "example": "2023-06-09T03:50:53.427Z."
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "example": "2023-06-09T03:50:53.427Z"
+                                            },
+                                            "isActive": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "isAdm": {
+                                                "type": "boolean",
+                                                "example": true
+                                            },
+                                            "email": {
+                                                "type": "string",
+                                                "example": "fecef@gmail.com"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Felie César"
+                                            },
+                                            "id": {
+                                                "type": "string",
+                                                "example": "51d61319-044a-444f-b7b3-cd2b4ae87b85"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "patch": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Atualiza um usuário através do ID.",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Felipe Ferreira"
+                                    },
+                                    "email": {
+                                        "type": "string",
+                                        "example": "fecef.figueiredo@gmail.com"
+                                    },
+                                    "password": {
+                                        "type": "string",
+                                        "example": "654321"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "example": "2023-06-09T03:50:53.427Z."
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "example": "2023-06-09T03:50:53.427Z"
+                                        },
+                                        "isActive": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "isAdm": {
+                                            "type": "boolean",
+                                            "example": true
+                                        },
+                                        "email": {
+                                            "type": "string",
+                                            "example": "fecef.figueiredo@gmail.com"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Felipe Ferreira"
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "51d61319-044a-444f-b7b3-cd2b4ae87b85"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "User"
+                ],
+                "summary": "Deleta um usuário pelo ID.",
+                "parameters": [
+                    {
+                        "name": "userId",
+                        "in": "path",
+                        "description": "ID do usuário",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "204": {
+                        "description": "No Content"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/categories": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Lista todas as categorias.",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "6f4179e7-e2f4-4871-b106-96615212ee8a"
+                                            },
+                                            "name": {
+                                                "type": "string",
+                                                "example": "Condomínio"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Cria uma nova categoria.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "name"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "name": {
+                                        "type": "string",
+                                        "example": "Condomínio"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "6f4179e7-e2f4-4871-b106-96615212ee8a"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Condomínio"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    }
+                }
+            }
+        },
+        "/categories/{categoryId}/properties": {
+            "get": {
+                "tags": [
+                    "Category"
+                ],
+                "summary": "Lista uma categoria por ID e suas propriedades correspondentes.",
+                "parameters": [
+                    {
+                        "name": "categoryId",
+                        "in": "path",
+                        "description": "ID da categoria",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "id": {
+                                            "type": "string",
+                                            "example": "6f4179e7-e2f4-4871-b106-96615212ee8a"
+                                        },
+                                        "name": {
+                                            "type": "string",
+                                            "example": "Condomínio"
+                                        },
+                                        "properties": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "914bc18d-cad1-4ee0-b2d5-3e6af11d8d5b"
+                                                    },
+                                                    "sold": {
+                                                        "type": "boolean",
+                                                        "example": false
+                                                    },
+                                                    "value": {
+                                                        "type": "string",
+                                                        "example": "300000"
+                                                    },
+                                                    "size": {
+                                                        "type": "number",
+                                                        "example": 80
+                                                    },
+                                                    "createdAt": {
+                                                        "type": "string",
+                                                        "example": "2023-06-09T17:38:19.267Z"
+                                                    },
+                                                    "updatedAt": {
+                                                        "type": "string",
+                                                        "example": "2023-06-09T17:38:19.267Z"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    }
+                }
+            }
+        },
+        "/properties": {
+            "get": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Lista todos os imóveis.",
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "array",
+                                    "items": {
+                                        "type": "object",
+                                        "properties": {
+                                            "id": {
+                                                "type": "string",
+                                                "example": "914bc18d-cad1-4ee0-b2d5-3e6af11d8d5b"
+                                            },
+                                            "sold": {
+                                                "type": "boolean",
+                                                "example": false
+                                            },
+                                            "value": {
+                                                "type": "string",
+                                                "example": "300000"
+                                            },
+                                            "size": {
+                                                "type": "number",
+                                                "example": 80
+                                            },
+                                            "createdAt": {
+                                                "type": "string",
+                                                "example": "2023-06-09T17:38:19.267Z"
+                                            },
+                                            "updatedAt": {
+                                                "type": "string",
+                                                "example": "2023-06-09T17:38:19.267Z"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Property"
+                ],
+                "summary": "Cria um novo imóvel.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "required": [
+                                    "value",
+                                    "size",
+                                    "address",
+                                    "district",
+                                    "zipCode",
+                                    "number",
+                                    "city",
+                                    "state",
+                                    "categoryId"
+                                ],
+                                "type": "object",
+                                "properties": {
+                                    "value": {
+                                        "type": "string",
+                                        "example": "300000"
+                                    },
+                                    "size": {
+                                        "type": "number",
+                                        "example": 80
+                                    },
+                                    "address": {
+                                        "type": "array",
+                                        "items": {
+                                            "type": "object",
+                                            "properties": {
+                                                "district": {
+                                                    "type": "string",
+                                                    "example": "Rua Bastelate"
+                                                },
+                                                "zipCode": {
+                                                    "type": "string",
+                                                    "example": "09864030"
+                                                },
+                                                "number": {
+                                                    "type": "string",
+                                                    "example": "38"
+                                                },
+                                                "city": {
+                                                    "type": "string",
+                                                    "example": "Santo André"
+                                                },
+                                                "state": {
+                                                    "type": "string",
+                                                    "example": "SP"
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "categoryId": {
+                                        "type": "string",
+                                        "example": "6f4179e7-e2f4-4871-b106-96615212ee8a"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "value": {
+                                            "type": "string",
+                                            "example": "300000"
+                                        },
+                                        "size": {
+                                            "type": "number",
+                                            "example": 80
+                                        },
+                                        "address": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "district": {
+                                                        "type": "string",
+                                                        "example": "Rua Bastelate"
+                                                    },
+                                                    "zipCode": {
+                                                        "type": "string",
+                                                        "example": "09864030"
+                                                    },
+                                                    "number": {
+                                                        "type": "string",
+                                                        "example": "38"
+                                                    },
+                                                    "city": {
+                                                        "type": "string",
+                                                        "example": "Santo André"
+                                                    },
+                                                    "state": {
+                                                        "type": "string",
+                                                        "example": "SP"
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        "categoryId": {
+                                            "type": "string",
+                                            "example": "6f4179e7-e2f4-4871-b106-96615212ee8a"
+                                        },
+                                        "id": {
+                                            "type": "string",
+                                            "example": "914bc18d-cad1-4ee0-b2d5-3e6af11d8d5b"
+                                        },
+                                        "sold": {
+                                            "type": "boolean",
+                                            "example": false
+                                        },
+                                        "createdAt": {
+                                            "type": "string",
+                                            "example": "2023-06-09T17:38:19.267Z"
+                                        },
+                                        "updatedAt": {
+                                            "type": "string",
+                                            "example": "2023-06-09T17:38:19.267Z"
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    }
+                }
+            }
+        },
+        "/schedules": {
+            "post": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Cria um novo agendamento de visita.",
+                "requestBody": {
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "type": "object",
+                                "properties": {
+                                    "userId": {
+                                        "type": "string",
+                                        "example": "51d61319-044a-444f-b7b3-cd2b4ae87b85"
+                                    },
+                                    "propertyId": {
+                                        "type": "string",
+                                        "example": "914bc18d-cad1-4ee0-b2d5-3e6af11d8d5b"
+                                    },
+                                    "date": {
+                                        "type": "string",
+                                        "example": "09/06/2023"
+                                    },
+                                    "hour": {
+                                        "type": "string",
+                                        "example": "14:58"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "required": true
+                },
+                "responses": {
+                    "201": {
+                        "description": "Created",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "message": {
+                                            "type": "string",
+                                            "example": "Schedule success."
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "description": "Bad Request"
+                    },
+                    "404": {
+                        "description": "Not Found"
+                    },
+                    "409": {
+                        "description": "Conflict"
+                    }
+                }
+            }
+        },
+        "/schedules/properties/{propertyId": {
+            "get": {
+                "tags": [
+                    "Schedules"
+                ],
+                "summary": "Lista todos os agendamento um determinado imóvel.",
+                "parameters": [
+                    {
+                        "name": "propertyId",
+                        "in": "path",
+                        "description": "ID do imóvel",
+                        "required": true,
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Ok",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {
+                                        "schedules": {
+                                            "type": "array",
+                                            "items": {
+                                                "type": "object",
+                                                "properties": {
+                                                    "id": {
+                                                        "type": "string",
+                                                        "example": "d397490b-0f9c-4d3b-8a16-7c64e224819e"
+                                                    },
+                                                    "date": {
+                                                        "type": "string",
+                                                        "example": "2023-06-09"
+                                                    },
+                                                    "hour": {
+                                                        "type": "string",
+                                                        "example": "14:58:00"
+                                                    },
+                                                    "user": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "example": "51d61319-044a-444f-b7b3-cd2b4ae87b85"
+                                                            },
+                                                            "name": {
+                                                                "type": "string",
+                                                                "example": "Felipe César"
+                                                            },
+                                                            "email": {
+                                                                "type": "string",
+                                                                "example": "fecef@gmail.com"
+                                                            },
+                                                            "isAdm": {
+                                                                "type": "boolean",
+                                                                "example": true
+                                                            },
+                                                            "isActive": {
+                                                                "type": "boolean",
+                                                                "example": true
+                                                            },
+                                                            "createdAt": {
+                                                                "type": "string",
+                                                                "example": "2023-06-09T03:50:53.427Z"
+                                                            },
+                                                            "updatedAt": {
+                                                                "type": "string",
+                                                                "example": "2023-06-09T15:59:50.388Z"
+                                                            }
+                                                        }
+                                                    },
+                                                    "property": {
+                                                        "type": "object",
+                                                        "properties": {
+                                                            "id": {
+                                                                "type": "string",
+                                                                "example": "914bc18d-cad1-4ee0-b2d5-3e6af11d8d5b"
+                                                            },
+                                                            "sold": {
+                                                                "type": "boolean",
+                                                                "example": false
+                                                            },
+                                                            "value": {
+                                                                "type": "string",
+                                                                "example": "300000"
+                                                            },
+                                                            "size": {
+                                                                "type": "number",
+                                                                "example": 80
+                                                            },
+                                                            "createdAt": {
+                                                                "type": "string",
+                                                                "example": "2023-06-09T17:38:19.267Z"
+                                                            },
+                                                            "updatedAt": {
+                                                                "type": "string",
+                                                                "example": "2023-06-09T17:38:19.267Z}"
+                                                            }
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "description": "Unauthorized"
+                    }
+                }
+            }
+        }
+    }
+}
